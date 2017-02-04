@@ -1,11 +1,13 @@
 package sg.edu.nus.comp.cs3219.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -150,14 +152,12 @@ public class MainView extends JFrame implements KwicUi {
      * */
     private void prepareLinesInputPanel(JPanel linesInputPanel) {
         JLabel linesInputLabel = new JLabel(LINES_INPUT);
-        linesInputLabel.setFont(FONT_STYLE);
-        linesInputLabel.setHorizontalAlignment(JLabel.CENTER);
+        formatLabel(linesInputLabel);
         linesInputPanel.setLayout(new BorderLayout());
         linesInputPanel.add(linesInputLabel, BorderLayout.NORTH);
         
         linesInput = new JTextArea(5, 20);
-        linesInput.setEditable(true);
-        linesInput.setFont(FONT_STYLE);
+        formatTextArea(linesInput);
         
         JScrollPane linesInputScroll = new JScrollPane(linesInput);
         linesInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -170,14 +170,12 @@ public class MainView extends JFrame implements KwicUi {
      * */
     private void prepareIgnoreWordsPanel(JPanel ignoreWordsInputPanel) {
         JLabel ignoreWordsLabel = new JLabel(WORDS_IGNORED);
-        ignoreWordsLabel.setFont(FONT_STYLE);
-        ignoreWordsLabel.setHorizontalAlignment(JLabel.CENTER);
+        formatLabel(ignoreWordsLabel);
         ignoreWordsInputPanel.setLayout(new BorderLayout());
         ignoreWordsInputPanel.add(ignoreWordsLabel, BorderLayout.NORTH);
         
         ignoreWordsInput = new JTextArea(5, 20);
-        ignoreWordsInput.setEditable(true);
-        ignoreWordsInput.setFont(FONT_STYLE);
+        formatTextArea(ignoreWordsInput);
         
         JScrollPane ignoreWordsInputScroll = new JScrollPane(ignoreWordsInput);
         ignoreWordsInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -188,14 +186,13 @@ public class MainView extends JFrame implements KwicUi {
      * */
     private void prepareWordsRequiredPanel(JPanel requiredWordsInputPanel) {
         JLabel requiredWordsLabel = new JLabel(WORDS_REQUIRED);
-        requiredWordsLabel.setFont(FONT_STYLE);
-        requiredWordsLabel.setHorizontalAlignment(JLabel.CENTER);
+        formatLabel(requiredWordsLabel);
+        
         requiredWordsInputPanel.setLayout(new BorderLayout());
         requiredWordsInputPanel.add(requiredWordsLabel, BorderLayout.NORTH);
         
         requiredWordsInput = new JTextArea(5, 20);
-        requiredWordsInput.setEditable(true);
-        requiredWordsInput.setFont(FONT_STYLE);
+        formatTextArea(requiredWordsInput);
         
         JScrollPane requiredWordsInputScroll = new JScrollPane(requiredWordsInput);
         requiredWordsInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -208,19 +205,32 @@ public class MainView extends JFrame implements KwicUi {
      * */
     private void prepareResultsPanel(JPanel resultPanel) {
         JLabel resultsLabel = new JLabel(RESULTS);
-        resultsLabel.setFont(FONT_STYLE);
-        resultsLabel.setHorizontalAlignment(JLabel.CENTER);
+        formatLabel(resultsLabel);
+        
         resultPanel.setLayout(new BorderLayout());
         resultPanel.add(resultsLabel, BorderLayout.NORTH);
         
         resultsOutput = new JTextArea(15, 30);
         resultsOutput.setEditable(false);
-        resultsOutput.setFont(FONT_STYLE);
+        formatTextArea(resultsOutput);
         
         JScrollPane outputDisplayScroll = new JScrollPane(resultsOutput);
         outputDisplayScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         resultPanel.add(outputDisplayScroll);
     }
+    
+    private void formatTextArea(JTextArea textArea) {
+        textArea.setBackground(Color.decode(UiSetup.COLOUR_BACKGROUND));
+        textArea.setForeground(Color.WHITE);
+        textArea.setFont(FONT_STYLE);
+    }
+    
+    private void formatLabel(JLabel label) {
+        label.setFont(FONT_STYLE);
+        label.setForeground(Color.white);
+        label.setHorizontalAlignment(JLabel.CENTER);
+    }
+
     
     private void attachButtonEvents() {
         generateButton.addActionListener(new ActionListener() {

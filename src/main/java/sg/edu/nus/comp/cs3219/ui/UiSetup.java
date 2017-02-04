@@ -9,7 +9,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  * */
 public class UiSetup {
     
-    private static final String COLOUR_BACKGROUND = "#E1F5FE";
+    private static final String NIMBUS_STYLE_REFERENCE = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+    public static final String COLOUR_BACKGROUND = "#263238";
     private static final String COLOUR_SCROLLBAR_PANEL = "#B3E5FC";
     private static final String COLOUR_SCROLLBAR = "#01579B";
     
@@ -19,9 +20,13 @@ public class UiSetup {
         UIManager.put("nimbusBlueGrey", Color.decode(COLOUR_SCROLLBAR_PANEL));
         UIManager.put("control", Color.decode(COLOUR_BACKGROUND));
 
+        setLookAndFeel();
+        
+    }
+
+    private static void setLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(
-                    "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel(NIMBUS_STYLE_REFERENCE);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e) {
             // TODO Auto-generated catch block
@@ -34,7 +39,6 @@ public class UiSetup {
                 e1.printStackTrace();
             }
         }
-        
     }
 
 }
