@@ -254,6 +254,7 @@ public class MainView extends JFrame implements KwicUi {
             public void actionPerformed(ActionEvent e) {
                 controller.exportResultToFile(resultsOutput.getText());
                 UIManager.put("OptionPane.messageFont", FONT_STYLE);
+                UIManager.put("OptionPane.messageForeground", Color.WHITE);
                 JOptionPane.showMessageDialog(null, "Data exported to output.txt");
             }
         });
