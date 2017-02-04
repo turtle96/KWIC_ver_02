@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -32,7 +31,8 @@ import sg.edu.nus.comp.cs3219.ui.UiController.KwicUi;
 
 public class MainView extends JFrame implements KwicUi {
 
-    private static final Font FONT_STYLE = new Font("Lucida Grande", Font.PLAIN, 20);
+    private static final Font FONT_STYLE_DEFAULT = new Font("Lucida Grande", Font.PLAIN, 20);
+    private static final Font FONT_STYLE_TITLE = new Font("Roboto Light", Font.PLAIN, 24);
     
     private static final String RESULTS = "Results";
     private static final String SYSTEM_TITLE = "Key Word In Context System";
@@ -66,18 +66,18 @@ public class MainView extends JFrame implements KwicUi {
     private JPanel createAndAddComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout()); 
         
-        mainPanel.setPreferredSize(new Dimension(1200, 600));
+        mainPanel.setPreferredSize(new Dimension(1600, 800));
         
         // Left Panel
         JPanel userInputPanel = new JPanel(new GridLayout(3, 0));
-        userInputPanel.setPreferredSize(new Dimension(600, 480));
+        userInputPanel.setPreferredSize(new Dimension(800, 500));
         JPanel linesInputPanel = new JPanel();
         JPanel ignoreWordsInputPanel = new JPanel();
         JPanel requiredWordsInputPanel = new JPanel();
         
         // Right Panel
         JPanel rightPanel = new JPanel(new GridBagLayout());
-        rightPanel.setPreferredSize(new Dimension(600, 480));
+        rightPanel.setPreferredSize(new Dimension(800, 500));
         JPanel resultPanel = new JPanel();
         JPanel architectureSelectionPanel = new JPanel();
         JPanel operationPanel = new JPanel();
@@ -97,22 +97,22 @@ public class MainView extends JFrame implements KwicUi {
                 resultPanel, architectureSelectionPanel);
         rightPanel.add(operationPanel, constraints);
 
-        userInputPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        userInputPanel.setBorder(new EmptyBorder(20, 20, 20, 10));
         mainPanel.add(userInputPanel, BorderLayout.WEST);
-        rightPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        rightPanel.setBorder(new EmptyBorder(20, 0, 20, 20));
         mainPanel.add(rightPanel, BorderLayout.EAST);
-
+        
         return mainPanel;
     }
 
     private void prepareOperationPanel(JPanel operationPanel) {
         // Operation area
         generateButton = new JButton("Generate");
-        generateButton.setFont(FONT_STYLE);
+        generateButton.setFont(FONT_STYLE_DEFAULT);
         clearAllButton = new JButton("Clear All");
-        clearAllButton.setFont(FONT_STYLE);
+        clearAllButton.setFont(FONT_STYLE_DEFAULT);
         exportResultButton = new JButton("Export");
-        exportResultButton.setFont(FONT_STYLE);
+        exportResultButton.setFont(FONT_STYLE_DEFAULT);
 
         operationPanel.setLayout(new BoxLayout(operationPanel, BoxLayout.X_AXIS));
         operationPanel.add(Box.createHorizontalGlue());
@@ -222,11 +222,11 @@ public class MainView extends JFrame implements KwicUi {
     private void formatTextArea(JTextArea textArea) {
         textArea.setBackground(Color.decode(UiSetup.COLOUR_BACKGROUND));
         textArea.setForeground(Color.WHITE);
-        textArea.setFont(FONT_STYLE);
+        textArea.setFont(FONT_STYLE_DEFAULT);
     }
     
     private void formatLabel(JLabel label) {
-        label.setFont(FONT_STYLE);
+        label.setFont(FONT_STYLE_TITLE);
         label.setForeground(Color.white);
         label.setHorizontalAlignment(JLabel.CENTER);
     }
@@ -253,7 +253,7 @@ public class MainView extends JFrame implements KwicUi {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.exportResultToFile(resultsOutput.getText());
-                UIManager.put("OptionPane.messageFont", FONT_STYLE);
+                UIManager.put("OptionPane.messageFont", FONT_STYLE_DEFAULT);
                 UIManager.put("OptionPane.messageForeground", Color.WHITE);
                 JOptionPane.showMessageDialog(null, "Data exported to output.txt");
             }
