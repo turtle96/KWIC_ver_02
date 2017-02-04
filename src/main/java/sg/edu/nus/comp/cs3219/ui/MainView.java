@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import sg.edu.nus.comp.cs3219.ui.UiController.KwicUi;
@@ -30,6 +31,7 @@ import sg.edu.nus.comp.cs3219.ui.UiController.KwicUi;
 public class MainView extends JFrame implements KwicUi {
 
     private static final Font FONT_STYLE = new Font("Lucida Grande", Font.PLAIN, 20);
+    
     private static final String RESULTS = "Results";
     private static final String SYSTEM_TITLE = "Key Word In Context System";
     private static final String WORDS_REQUIRED = "Words Required";
@@ -89,7 +91,7 @@ public class MainView extends JFrame implements KwicUi {
         prepareResultsPanel(resultPanel);      
         prepareOperationPanel(operationPanel);
         
-        GridBagConstraints constraints = setGridBagConstraints(rightPanel,
+        GridBagConstraints constraints = setConstraintsForRightPanel(rightPanel,
                 resultPanel, architectureSelectionPanel);
         rightPanel.add(operationPanel, constraints);
 
@@ -118,7 +120,7 @@ public class MainView extends JFrame implements KwicUi {
         operationPanel.add(Box.createHorizontalGlue());
     }
 
-    private GridBagConstraints setGridBagConstraints(JPanel rightPanel, JPanel resultPanel,
+    private GridBagConstraints setConstraintsForRightPanel(JPanel rightPanel, JPanel resultPanel,
             JPanel architectureSelectionPanel) {
         GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.PAGE_START;
@@ -144,8 +146,9 @@ public class MainView extends JFrame implements KwicUi {
         return c;
     }
 
+    /** takes in panel for lines input and add components and format layout
+     * */
     private void prepareLinesInputPanel(JPanel linesInputPanel) {
-        // Lines input
         JLabel linesInputLabel = new JLabel(LINES_INPUT);
         linesInputLabel.setFont(FONT_STYLE);
         linesInputLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -159,10 +162,13 @@ public class MainView extends JFrame implements KwicUi {
         JScrollPane linesInputScroll = new JScrollPane(linesInput);
         linesInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         linesInputPanel.add(linesInputScroll);
+        
+        linesInputPanel.setBorder(new EmptyBorder(0, 0, 10, 0));
     }
 
+    /** takes in panel for words to ignore input and add components and format layout
+     * */
     private void prepareIgnoreWordsPanel(JPanel ignoreWordsInputPanel) {
-        // Ignore words input
         JLabel ignoreWordsLabel = new JLabel(WORDS_IGNORED);
         ignoreWordsLabel.setFont(FONT_STYLE);
         ignoreWordsLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -178,8 +184,9 @@ public class MainView extends JFrame implements KwicUi {
         ignoreWordsInputPanel.add(ignoreWordsInputScroll);
     }
 
+    /** takes in panel for required words input and add components and format layout
+     * */
     private void prepareWordsRequiredPanel(JPanel requiredWordsInputPanel) {
-        // Required words input
         JLabel requiredWordsLabel = new JLabel(WORDS_REQUIRED);
         requiredWordsLabel.setFont(FONT_STYLE);
         requiredWordsLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -193,10 +200,13 @@ public class MainView extends JFrame implements KwicUi {
         JScrollPane requiredWordsInputScroll = new JScrollPane(requiredWordsInput);
         requiredWordsInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         requiredWordsInputPanel.add(requiredWordsInputScroll);
+        
+        requiredWordsInputPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
     }
     
+    /** takes in panel for results input and add components and format layout
+     * */
     private void prepareResultsPanel(JPanel resultPanel) {
-        // Results output
         JLabel resultsLabel = new JLabel(RESULTS);
         resultsLabel.setFont(FONT_STYLE);
         resultsLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -233,6 +243,7 @@ public class MainView extends JFrame implements KwicUi {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.exportResultToFile(resultsOutput.getText());
+                UIManager.put("OptionPane.messageFont", FONT_STYLE);
                 JOptionPane.showMessageDialog(null, "Data exported to output.txt");
             }
         });
