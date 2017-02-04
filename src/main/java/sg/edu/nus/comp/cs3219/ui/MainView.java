@@ -15,6 +15,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,7 +28,13 @@ import sg.edu.nus.comp.cs3219.ui.UiController.KwicUi;
 
 public class MainView extends JFrame implements KwicUi {
 
-	private static final long serialVersionUID = -3445311782196514706L;
+	private static final String RESULTS = "Results";
+    private static final String SYSTEM_TITLE = "Key Word In Context System";
+    private static final String WORDS_REQUIRED = "Words Required";
+    private static final String WORDS_IGNORED = "Words Ignored";
+    private static final String LINES_INPUT = "Lines Input";
+
+    private static final long serialVersionUID = -3445311782196514706L;
 
 	private JTextArea linesInput;
 	private JTextArea ignoreWordsInput;
@@ -40,7 +47,7 @@ public class MainView extends JFrame implements KwicUi {
 	private UiController controller;
 	
 	public MainView() {
-		super("Key Word In Context");
+		super(SYSTEM_TITLE);
 		add(createAndAddComponents());
 		attachButtonEvents();
 		pack();
@@ -51,7 +58,8 @@ public class MainView extends JFrame implements KwicUi {
 	}
 
 	private JPanel createAndAddComponents() {
-		JPanel mainPanel = new JPanel(new GridLayout(0, 2));
+		GridLayout layout = new GridLayout(0, 2);
+        JPanel mainPanel = new JPanel(layout); 
 		
 		// Left Panel
 		JPanel userInputPanel = new JPanel(new GridLayout(3, 0));
@@ -67,41 +75,15 @@ public class MainView extends JFrame implements KwicUi {
 		JPanel architectureSelectionPanel = new JPanel();
 		JPanel operationPanel = new JPanel();
 
-		// Lines input
-		linesInputPanel.setBorder(new TitledBorder(new EtchedBorder(), "Lines Input"));
-		linesInput = new JTextArea(8, 30);
-		linesInput.setEditable(true);
-		JScrollPane linesInputScroll = new JScrollPane(linesInput);
-		linesInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		linesInputPanel.add(linesInputScroll);
-
-		// Ignore words input
-		ignoreWordsInputPanel.setBorder(new TitledBorder(new EtchedBorder(), "Words Ignored"));
-		ignoreWordsInput = new JTextArea(8, 30);
-		ignoreWordsInput.setEditable(true);
-		JScrollPane ignoreWordsInputScroll = new JScrollPane(ignoreWordsInput);
-		ignoreWordsInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		ignoreWordsInputPanel.add(ignoreWordsInputScroll);
-		
-		// Required words input
-		requiredWordsInputPanel.setBorder(new TitledBorder(new EtchedBorder(), "Words Required"));
-		requiredWordsInput = new JTextArea(8, 30);
-		requiredWordsInput.setEditable(true);
-		JScrollPane requiredWordsInputScroll = new JScrollPane(requiredWordsInput);
-		requiredWordsInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		requiredWordsInputPanel.add(requiredWordsInputScroll);
+		prepareLinesInputPanel(linesInputPanel);
+		prepareIgnoreWordsPanel(ignoreWordsInputPanel);
+		prepareWordsRequiredPanel(requiredWordsInputPanel);
 
 		userInputPanel.add(linesInputPanel);
 		userInputPanel.add(ignoreWordsInputPanel);
 		userInputPanel.add(requiredWordsInputPanel);
 
-		// Results output
-		resultPanel.setBorder(new TitledBorder(new EtchedBorder(), "Results"));
-		resultsOutput = new JTextArea(19, 30);
-		resultsOutput.setEditable(false);
-		JScrollPane outputDisplayScroll = new JScrollPane(resultsOutput);
-		outputDisplayScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		resultPanel.add(outputDisplayScroll);
+		prepareResultsPanel(resultPanel);
 		
 		// Operation area
 		generateButton = new JButton("Generate");
@@ -115,7 +97,19 @@ public class MainView extends JFrame implements KwicUi {
 		operationPanel.add(exportResultButton);
 		operationPanel.add(Box.createHorizontalGlue());
 		
-		GridBagConstraints c = new GridBagConstraints();
+		GridBagConstraints constraints = setGridBagConstraints(rightPanel,
+		        resultPanel, architectureSelectionPanel);
+		rightPanel.add(operationPanel, constraints);
+
+		mainPanel.add(userInputPanel);
+		mainPanel.add(rightPanel);
+
+		return mainPanel;
+	}
+
+    private GridBagConstraints setGridBagConstraints(JPanel rightPanel, JPanel resultPanel,
+            JPanel architectureSelectionPanel) {
+        GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.PAGE_START;
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
@@ -136,13 +130,52 @@ public class MainView extends JFrame implements KwicUi {
 		c.gridy = 2;
 		c.weightx = 1.0;
 		c.weighty = 0.1;
-		rightPanel.add(operationPanel, c);
+        return c;
+    }
 
-		mainPanel.add(userInputPanel);
-		mainPanel.add(rightPanel);
+    private void prepareResultsPanel(JPanel resultPanel) {
+        // Results output
+		JLabel resultsLabel = new JLabel(RESULTS);
+		resultPanel.add(resultsLabel);
+		resultsOutput = new JTextArea(19, 30);
+		resultsOutput.setEditable(false);
+		JScrollPane outputDisplayScroll = new JScrollPane(resultsOutput);
+		outputDisplayScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		resultPanel.add(outputDisplayScroll);
+    }
 
-		return mainPanel;
-	}
+    private void prepareWordsRequiredPanel(JPanel requiredWordsInputPanel) {
+        // Required words input
+		JLabel requiredWordsLabel = new JLabel(WORDS_REQUIRED);
+		requiredWordsInputPanel.add(requiredWordsLabel);
+		requiredWordsInput = new JTextArea(8, 30);
+		requiredWordsInput.setEditable(true);
+		JScrollPane requiredWordsInputScroll = new JScrollPane(requiredWordsInput);
+		requiredWordsInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		requiredWordsInputPanel.add(requiredWordsInputScroll);
+    }
+
+    private void prepareIgnoreWordsPanel(JPanel ignoreWordsInputPanel) {
+        // Ignore words input
+		JLabel ignoreWordsLabel = new JLabel(WORDS_IGNORED);
+		ignoreWordsInputPanel.add(ignoreWordsLabel);
+		ignoreWordsInput = new JTextArea(8, 30);
+		ignoreWordsInput.setEditable(true);
+		JScrollPane ignoreWordsInputScroll = new JScrollPane(ignoreWordsInput);
+		ignoreWordsInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		ignoreWordsInputPanel.add(ignoreWordsInputScroll);
+    }
+
+    private void prepareLinesInputPanel(JPanel linesInputPanel) {
+        // Lines input
+		JLabel linesInputLabel = new JLabel(LINES_INPUT);
+		linesInputPanel.add(linesInputLabel);
+		linesInput = new JTextArea(8, 30);
+		linesInput.setEditable(true);
+		JScrollPane linesInputScroll = new JScrollPane(linesInput);
+		linesInputScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		linesInputPanel.add(linesInputScroll);
+    }
 	
 	private void attachButtonEvents() {
 		generateButton.addActionListener(new ActionListener() {
