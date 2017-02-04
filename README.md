@@ -20,10 +20,10 @@ After install Maven, you should be able to Import the project into Eclipse works
 Refer to [this guide](http://stackoverflow.com/questions/2061094/importing-maven-project-into-eclipse) if you meet any issues for importing.
 
 ## Run the project
-You can run the program from [App.java](https://github.com/Gisonrg-in-NUS/KWIC-demo/blob/master/src/main/java/sg/edu/nus/comp/cs3219/App.java).
+You can run the program from [App.java](src/main/java/sg/edu/nus/comp/cs3219/App.java).
 Make sure you have played it before coding :)
 
 ## Tasks
 You are required to implement the "Required words" feature, and set up the Travis CI with your project repo.
-- [ ] You are expected to study the given code structure, and understand how it works first before coding. The example base code for [RequiredWordsFilter.java](https://github.com/Gisonrg/CS3219-KWIC-demo/blob/master/src/main/java/sg/edu/nus/comp/cs3219/module/RequiredWordsFilter.java) is provided to you, or you can implement your own design. All the necessary interactions between UI and logic are provided to you.
-- [ ] Set up the [Travis CI](https://travis-ci.org/) for your project repo to make sure all tests are run and passed in the CI. A working travis config file ([.travis.yml](https://github.com/Gisonrg-in-NUS/KWIC-demo/blob/master/.travis.yml)) is provided to you in the repo. You are encouraged to learn more about Travis CI and modify the config file for your need.
+- [ ] You are expected to study the given code structure, and understand how it works first before coding. The example base code for [RequiredWordsFilter.java](src/main/java/sg/edu/nus/comp/cs3219/module/RequiredWordsFilter.java) is provided to you, or you can implement your own design. All the necessary interactions between UI and logic are provided to you.
+- [ ] Set up the [Travis CI](https://travis-ci.org/) for your project repo to make sure all tests are run and passed in the CI. A working travis config file ([.travis.yml](.travis.yml)) is provided to you in the repo. You are encouraged to learn more about Travis CI and modify the config file for your need.
