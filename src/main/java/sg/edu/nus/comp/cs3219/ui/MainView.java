@@ -67,10 +67,12 @@ public class MainView extends JFrame implements KwicUi {
         JPanel mainPanel = new JPanel(new BorderLayout()); 
         
         mainPanel.setPreferredSize(new Dimension(1600, 800));
+        mainPanel.setMinimumSize(new Dimension(1000, 400));
         
         // Left Panel
         JPanel userInputPanel = new JPanel(new GridLayout(3, 0));
         userInputPanel.setPreferredSize(new Dimension(800, 500));
+        userInputPanel.setMinimumSize(new Dimension(500, 400));
         JPanel linesInputPanel = new JPanel();
         JPanel ignoreWordsInputPanel = new JPanel();
         JPanel requiredWordsInputPanel = new JPanel();
@@ -78,6 +80,7 @@ public class MainView extends JFrame implements KwicUi {
         // Right Panel
         JPanel rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setPreferredSize(new Dimension(800, 500));
+        rightPanel.setMinimumSize(new Dimension(500, 400));
         JPanel resultPanel = new JPanel();
         JPanel architectureSelectionPanel = new JPanel();
         JPanel operationPanel = new JPanel();
