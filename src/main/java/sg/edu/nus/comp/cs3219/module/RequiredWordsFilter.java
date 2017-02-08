@@ -28,13 +28,18 @@ public class RequiredWordsFilter implements Observer {
 		switch (event.getEventType()) {
 		case ADD:
 			Line line = storage.get(event.getChangedLine());
-
-			// TODO: add filtered result to result storage
-			
+			String word = line.getWord(0);
+			if (isRequiredWord(word)) {
+			    resultStorage.addLine(line);
+			}
 			break;
 		default:
 			break;
 		}
 	}
+	
+	private boolean isRequiredWord(String word) {
+        return requiredWords.contains(word.toLowerCase());
+    }
 
 }
