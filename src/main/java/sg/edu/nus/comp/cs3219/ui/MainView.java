@@ -280,6 +280,11 @@ public class MainView extends JFrame implements KwicUi {
     @Override
     public Set<String> getRequiredWords() {
         String requiredWords = requiredWordsInput.getText();
+        // return empty set immediately if there's no required words
+        // otherwise the loop below returns a set containing an empty string
+        if (requiredWords.isEmpty()) {
+            return new HashSet<>();
+        }
         String[] requiredWordsList = requiredWords.split("\n");
         Set<String> requiredWordsSet = new HashSet<>();
         for (String word : requiredWordsList) {
