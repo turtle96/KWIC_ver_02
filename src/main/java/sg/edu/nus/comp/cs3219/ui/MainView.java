@@ -54,17 +54,18 @@ public class MainView extends JFrame implements KwicUi {
     
     public MainView() {
         super(SYSTEM_TITLE);
+        setMinimumSize(new Dimension(1000, 400));
         add(createAndAddComponents());
         attachButtonEvents();
         pack();
-        setResizable(false);
+        setResizable(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
     private JPanel createAndAddComponents() {
-        JPanel mainPanel = new JPanel(new BorderLayout()); 
+        JPanel mainPanel = new JPanel(new GridLayout(0, 2)); 
         
         mainPanel.setPreferredSize(new Dimension(1600, 800));
         mainPanel.setMinimumSize(new Dimension(1000, 400));
