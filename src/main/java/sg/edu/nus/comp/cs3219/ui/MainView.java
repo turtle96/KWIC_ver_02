@@ -70,7 +70,37 @@ public class MainView extends JFrame implements KwicUi {
         mainPanel.setPreferredSize(new Dimension(1600, 800));
         mainPanel.setMinimumSize(new Dimension(1000, 400));
         
-        // Left Panel
+        JPanel userInputPanel = prepareInputPanel();        
+        JPanel outputPanel = prepareOutputPanel();
+
+        userInputPanel.setBorder(new EmptyBorder(20, 20, 20, 10));
+        mainPanel.add(userInputPanel, BorderLayout.WEST);
+        outputPanel.setBorder(new EmptyBorder(20, 0, 20, 20));
+        mainPanel.add(outputPanel, BorderLayout.EAST);
+        
+        return mainPanel;
+    }
+
+    private JPanel prepareOutputPanel() {
+
+        JPanel outputPanel = new JPanel(new GridBagLayout());
+        outputPanel.setPreferredSize(new Dimension(800, 500));
+        outputPanel.setMinimumSize(new Dimension(500, 400));
+        JPanel resultPanel = new JPanel();
+        JPanel architectureSelectionPanel = new JPanel();
+        JPanel operationPanel = new JPanel();
+
+        prepareResultsPanel(resultPanel);      
+        prepareOperationPanel(operationPanel);
+        
+        GridBagConstraints constraints = setConstraintsForRightPanel(outputPanel,
+                resultPanel, architectureSelectionPanel);
+        outputPanel.add(operationPanel, constraints);
+        return outputPanel;
+    }
+
+    private JPanel prepareInputPanel() {
+
         JPanel userInputPanel = new JPanel(new GridLayout(3, 0));
         userInputPanel.setPreferredSize(new Dimension(800, 500));
         userInputPanel.setMinimumSize(new Dimension(500, 400));
@@ -78,14 +108,6 @@ public class MainView extends JFrame implements KwicUi {
         JPanel ignoreWordsInputPanel = new JPanel();
         JPanel requiredWordsInputPanel = new JPanel();
         
-        // Right Panel
-        JPanel rightPanel = new JPanel(new GridBagLayout());
-        rightPanel.setPreferredSize(new Dimension(800, 500));
-        rightPanel.setMinimumSize(new Dimension(500, 400));
-        JPanel resultPanel = new JPanel();
-        JPanel architectureSelectionPanel = new JPanel();
-        JPanel operationPanel = new JPanel();
-
         prepareLinesInputPanel(linesInputPanel);
         prepareIgnoreWordsPanel(ignoreWordsInputPanel);
         prepareWordsRequiredPanel(requiredWordsInputPanel);
@@ -93,20 +115,7 @@ public class MainView extends JFrame implements KwicUi {
         userInputPanel.add(linesInputPanel);
         userInputPanel.add(ignoreWordsInputPanel);
         userInputPanel.add(requiredWordsInputPanel);
-
-        prepareResultsPanel(resultPanel);      
-        prepareOperationPanel(operationPanel);
-        
-        GridBagConstraints constraints = setConstraintsForRightPanel(rightPanel,
-                resultPanel, architectureSelectionPanel);
-        rightPanel.add(operationPanel, constraints);
-
-        userInputPanel.setBorder(new EmptyBorder(20, 20, 20, 10));
-        mainPanel.add(userInputPanel, BorderLayout.WEST);
-        rightPanel.setBorder(new EmptyBorder(20, 0, 20, 20));
-        mainPanel.add(rightPanel, BorderLayout.EAST);
-        
-        return mainPanel;
+        return userInputPanel;
     }
 
     private void prepareOperationPanel(JPanel operationPanel) {
