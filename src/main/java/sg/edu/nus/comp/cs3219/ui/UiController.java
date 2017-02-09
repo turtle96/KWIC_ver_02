@@ -62,10 +62,16 @@ public class UiController {
 		Set<String> ignoredWordsSet = view.getIgnoredWords();
 		// Get entered required words from GUI
 		Set<String> requiredWordsSet = view.getRequiredWords();
-		// Run the application
-		List<String> result = controller.run(view.getInput(), ignoredWordsSet, requiredWordsSet);
-		// Display result
-		view.setResutls(result);
+		// Check that given "required words" are not "words to ignore"
+		if (isRequiredWordInIgnoreSet(ignoredWordsSet, requiredWordsSet)) {
+		    // TODO: Do the pop up thing here
+		    System.out.println("Required words cannot be words to ignore");
+		} else {
+		    // Run the application
+	        List<String> result = controller.run(view.getInput(), ignoredWordsSet, requiredWordsSet);
+	        // Display result
+	        view.setResutls(result);
+		}
 	}
 
 	public void exportResultToFile(String data) {
@@ -85,4 +91,14 @@ public class UiController {
 			}
 		}
 	}
+	
+	private boolean isRequiredWordInIgnoreSet(Set<String> ignoreWords, Set<String> requiredWords) {
+	    for (String reqWord : requiredWords) {
+	        if (ignoreWords.contains(reqWord)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
 }
