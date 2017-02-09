@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import sg.edu.nus.comp.cs3219.control.MasterControl;
@@ -64,8 +65,7 @@ public class UiController {
 		Set<String> requiredWordsSet = view.getRequiredWords();
 		// Check that given "required words" are not "words to ignore"
 		if (isRequiredWordInIgnoreSet(ignoredWordsSet, requiredWordsSet)) {
-		    // TODO: Do the pop up thing here
-		    System.out.println("Required words cannot be words to ignore");
+		    JOptionPane.showMessageDialog(null, "Required words cannot be words to ignore");
 		} else {
 		    // Run the application
 	        List<String> result = controller.run(view.getInput(), ignoredWordsSet, requiredWordsSet);
