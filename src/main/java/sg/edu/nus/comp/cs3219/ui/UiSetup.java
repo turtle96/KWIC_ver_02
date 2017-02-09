@@ -1,6 +1,7 @@
 package sg.edu.nus.comp.cs3219.ui;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -19,6 +20,9 @@ public class UiSetup {
         UIManager.put("nimbusBase", Color.decode(COLOUR_SCROLLBAR));
         UIManager.put("nimbusBlueGrey", Color.decode(COLOUR_SCROLLBAR_PANEL));
         UIManager.put("control", Color.decode(COLOUR_BACKGROUND));
+        
+        UIManager.put("OptionPane.messageFont", MainView.FONT_STYLE_DEFAULT);
+        UIManager.put("OptionPane.messageForeground", Color.WHITE);
 
         setLookAndFeel();
         

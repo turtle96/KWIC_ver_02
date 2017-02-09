@@ -31,7 +31,7 @@ import sg.edu.nus.comp.cs3219.ui.UiController.KwicUi;
 
 public class MainView extends JFrame implements KwicUi {
 
-    private static final Font FONT_STYLE_DEFAULT = new Font("Lucida Grande", Font.PLAIN, 20);
+    public static final Font FONT_STYLE_DEFAULT = new Font("Lucida Grande", Font.PLAIN, 20);
     private static final Font FONT_STYLE_TITLE = new Font("Roboto Light", Font.PLAIN, 24);
     
     private static final String RESULTS = "Results";
@@ -266,8 +266,6 @@ public class MainView extends JFrame implements KwicUi {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.exportResultToFile(resultsOutput.getText());
-                UIManager.put("OptionPane.messageFont", FONT_STYLE_DEFAULT);
-                UIManager.put("OptionPane.messageForeground", Color.WHITE);
                 JOptionPane.showMessageDialog(null, "Data exported to output.txt");
             }
         });
