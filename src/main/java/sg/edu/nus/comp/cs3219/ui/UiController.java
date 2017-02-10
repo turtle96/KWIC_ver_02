@@ -65,7 +65,7 @@ public class UiController {
 		Set<String> requiredWordsSet = view.getRequiredWords();
 		// Check that given "required words" are not "words to ignore"
 		if (isRequiredWordInIgnoreSet(ignoredWordsSet, requiredWordsSet)) {
-		    JOptionPane.showMessageDialog(null, "Required words cannot be words to ignore");
+		    JOptionPane.showMessageDialog(null, "Required words cannot be the same as words to ignore");
 		} else {
 		    // Run the application
 	        List<String> result = controller.run(view.getInput(), ignoredWordsSet, requiredWordsSet);
